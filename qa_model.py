@@ -24,7 +24,3 @@ def get_answer(manual_text, user_question):
     )
 
     return response.choices[0].message.content.strip()
-
-
-
-
