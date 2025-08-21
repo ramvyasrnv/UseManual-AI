@@ -1,5 +1,4 @@
 openai
 flask
 PyMuPDF
-transformers
 gunicorn
