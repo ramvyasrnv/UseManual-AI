@@ -2,3 +2,4 @@ openai
 flask
 PyMuPDF
 gunicorn
+python-dotenv
