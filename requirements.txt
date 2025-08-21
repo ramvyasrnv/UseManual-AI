@@ -1,4 +1,4 @@
 openai
 flask
-fitz
-pymupdf
+PyMuPDF
+transformers
