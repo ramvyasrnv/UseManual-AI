@@ -17,12 +17,20 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload_manual():
     global manual_content
-    file = request.files['manual']
-    if file:
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(filepath)
-        manual_content = extract_text_from_pdf(filepath)
-    return redirect(url_for('index'))
+    try:
+        file = request.files['manual']
+        if file:
+            # Save to /tmp (the only writable dir on Vercel)
+            filepath = os.path.join("/tmp", file.filename)
+            file.save(filepath)
+
+            # Extract text
+            manual_content = extract_text_from_pdf(filepath)
+
+        return redirect(url_for('index'))
+    except Exception as e:
+        app.logger.error(f"Upload failed: {e}")
+        return f"Error: {e}", 500
 
 @app.route('/chat', methods=['POST'])
 def chat():
